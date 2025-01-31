@@ -1,0 +1,268 @@
+{
+    "routes": [
+        {
+            "compact_display_short_name": {
+                "boxed_text": "",
+                "elements": [
+                    null,
+                    "44",
+                    null
+                ],
+                "route_name_redundancy": false
+            },
+            "global_route_id": "MBTA:6977",
+            "itineraries": [
+                {
+                    "branch_code": "",
+                    "closest_stop": {
+                        "global_stop_id": "MBTA:89725",
+                        "location_type": 0,
+                        "parent_station_global_stop_id": null,
+                        "route_type": 3,
+                        "rt_stop_id": "1742",
+                        "stop_code": "1742",
+                        "stop_lat": 42.31241924031577,
+                        "stop_lon": -71.0934848487384,
+                        "stop_name": "Seaver St / Harold St",
+                        "wheelchair_boarding": 1
+                    },
+                    "direction_headsign": "Jackson Square",
+                    "direction_id": 0,
+                    "headsign": "Jackson Square",
+                    "merged_headsign": "Jackson Square",
+                    "schedule_items": [
+                        {
+                            "departure_time": 1736023279,
+                            "is_cancelled": false,
+                            "is_real_time": true,
+                            "rt_trip_id": "66623763",
+                            "scheduled_departure_time": 1736023080,
+                            "trip_search_key": "MBTA:47366832:413:1:21",
+                            "wheelchair_accessible": 1
+                        },
+                        {
+                            "departure_time": 1736025189,
+                            "is_cancelled": false,
+                            "is_real_time": true,
+                            "rt_trip_id": "66623764",
+                            "scheduled_departure_time": 1736024880,
+                            "trip_search_key": "MBTA:47366832:413:1:22",
+                            "wheelchair_accessible": 1
+                        },
+                        {
+                            "departure_time": 1736027260,
+                            "is_cancelled": false,
+                            "is_real_time": true,
+                            "rt_trip_id": "66623762",
+                            "scheduled_departure_time": 1736026860,
+                            "trip_search_key": "MBTA:47366832:413:1:23",
+                            "wheelchair_accessible": 1
+                        }
+                    ]
+                },
+                {
+                    "branch_code": "",
+                    "closest_stop": {
+                        "global_stop_id": "MBTA:90456",
+                        "location_type": 0,
+                        "parent_station_global_stop_id": null,
+                        "route_type": 3,
+                        "rt_stop_id": "1327",
+                        "stop_code": "1327",
+                        "stop_lat": 42.31181669569099,
+                        "stop_lon": -71.0904901120212,
+                        "stop_name": "Humboldt Ave / Homestead St",
+                        "wheelchair_boarding": 1
+                    },
+                    "direction_headsign": "Ruggles",
+                    "direction_id": 1,
+                    "headsign": "Ruggles",
+                    "merged_headsign": "Ruggles",
+                    "schedule_items": [
+                        {
+                            "departure_time": 1736024615,
+                            "is_cancelled": false,
+                            "is_real_time": true,
+                            "rt_trip_id": "66623781",
+                            "scheduled_departure_time": 1736024400,
+                            "trip_search_key": "MBTA:47366832:415:1:22",
+                            "wheelchair_accessible": 1
+                        },
+                        {
+                            "departure_time": 1736026313,
+                            "is_cancelled": false,
+                            "is_real_time": true,
+                            "rt_trip_id": "66623784",
+                            "scheduled_departure_time": 1736026200,
+                            "trip_search_key": "MBTA:47366832:415:1:23",
+                            "wheelchair_accessible": 1
+                        },
+                        {
+                            "departure_time": 1736028300,
+                            "is_cancelled": false,
+                            "is_real_time": false,
+                            "rt_trip_id": "66623779",
+                            "scheduled_departure_time": 1736028300,
+                            "trip_search_key": "MBTA:47366832:415:1:24",
+                            "wheelchair_accessible": 1
+                        }
+                    ]
+                }
+            ],
+            "mode_name": "Bus",
+            "real_time_route_id": "44",
+            "route_color": "ffc72c",
+            "route_display_short_name": {
+                "boxed_text": "",
+                "elements": [
+                    null,
+                    "44",
+                    null
+                ],
+                "route_name_redundancy": false
+            },
+            "route_image": "",
+            "route_long_name": "Jackson Square Station - Ruggles Station",
+            "route_network_id": "MBTA|Boston",
+            "route_network_name": "MBTA",
+            "route_short_name": "44",
+            "route_text_color": "000000",
+            "route_type": 3,
+            "sorting_key": "50440",
+            "tts_long_name": "Jackson Square Station - Ruggles Station",
+            "tts_short_name": "44"
+        },
+        {
+            "compact_display_short_name": {
+                "boxed_text": "",
+                "elements": [
+                    null,
+                    "22",
+                    null
+                ],
+                "route_name_redundancy": false
+            },
+            "global_route_id": "MBTA:6919",
+            "itineraries": [
+                {
+                    "branch_code": "",
+                    "closest_stop": {
+                        "global_stop_id": "MBTA:74862",
+                        "location_type": 0,
+                        "parent_station_global_stop_id": null,
+                        "route_type": 3,
+                        "rt_stop_id": "17411",
+                        "stop_code": "17411",
+                        "stop_lat": 42.30968530649587,
+                        "stop_lon": -71.09210888862509,
+                        "stop_name": "Seaver St / Humboldt Ave",
+                        "wheelchair_boarding": 1
+                    },
+                    "direction_headsign": "Ashmont",
+                    "direction_id": 0,
+                    "headsign": "Ashmont",
+                    "merged_headsign": "Ashmont",
+                    "schedule_items": [
+                        {
+                            "departure_time": 1736024356,
+                            "is_cancelled": false,
+                            "is_real_time": true,
+                            "rt_trip_id": "66624213",
+                            "scheduled_departure_time": 1736023740,
+                            "trip_search_key": "MBTA:47366832:285:1:46",
+                            "wheelchair_accessible": 1
+                        },
+                        {
+                            "departure_time": 1736024643,
+                            "is_cancelled": false,
+                            "is_real_time": true,
+                            "rt_trip_id": "66624212",
+                            "scheduled_departure_time": 1736024640,
+                            "trip_search_key": "MBTA:47366832:285:1:47",
+                            "wheelchair_accessible": 1
+                        },
+                        {
+                            "departure_time": 1736025455,
+                            "is_cancelled": false,
+                            "is_real_time": true,
+                            "rt_trip_id": "66624209",
+                            "scheduled_departure_time": 1736025540,
+                            "trip_search_key": "MBTA:47366832:285:1:48",
+                            "wheelchair_accessible": 1
+                        }
+                    ]
+                },
+                {
+                    "branch_code": "",
+                    "closest_stop": {
+                        "global_stop_id": "MBTA:89725",
+                        "location_type": 0,
+                        "parent_station_global_stop_id": null,
+                        "route_type": 3,
+                        "rt_stop_id": "1742",
+                        "stop_code": "1742",
+                        "stop_lat": 42.31241924031577,
+                        "stop_lon": -71.0934848487384,
+                        "stop_name": "Seaver St / Harold St",
+                        "wheelchair_boarding": 1
+                    },
+                    "direction_headsign": "Ruggles",
+                    "direction_id": 1,
+                    "headsign": "Ruggles",
+                    "merged_headsign": "Ruggles",
+                    "schedule_items": [
+                        {
+                            "departure_time": 1736023439,
+                            "is_cancelled": false,
+                            "is_real_time": true,
+                            "rt_trip_id": "66624159",
+                            "scheduled_departure_time": 1736023080,
+                            "trip_search_key": "MBTA:47366832:288:1:46",
+                            "wheelchair_accessible": 1
+                        },
+                        {
+                            "departure_time": 1736024017,
+                            "is_cancelled": false,
+                            "is_real_time": true,
+                            "rt_trip_id": "66624161",
+                            "scheduled_departure_time": 1736023980,
+                            "trip_search_key": "MBTA:47366832:288:1:47",
+                            "wheelchair_accessible": 1
+                        },
+                        {
+                            "departure_time": 1736024556,
+                            "is_cancelled": false,
+                            "is_real_time": true,
+                            "rt_trip_id": "66624160",
+                            "scheduled_departure_time": 1736024820,
+                            "trip_search_key": "MBTA:47366832:288:1:48",
+                            "wheelchair_accessible": 1
+                        }
+                    ]
+                }
+            ],
+            "mode_name": "Bus",
+            "real_time_route_id": "22",
+            "route_color": "ffc72c",
+            "route_display_short_name": {
+                "boxed_text": "",
+                "elements": [
+                    null,
+                    "22",
+                    null
+                ],
+                "route_name_redundancy": false
+            },
+            "route_image": "",
+            "route_long_name": "Ashmont Sta - Ruggles Sta via Talbot Ave",
+            "route_network_id": "MBTA|Boston",
+            "route_network_name": "MBTA",
+            "route_short_name": "22",
+            "route_text_color": "000000",
+            "route_type": 3,
+            "sorting_key": "50220",
+            "tts_long_name": "Ashmont Sta - Ruggles Sta via Talbot Ave",
+            "tts_short_name": "22"
+        }
+    ]
+}

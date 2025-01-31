@@ -1,0 +1,132 @@
+import pygame
+import sys
+import MBTA_Fetcher
+import threading
+import time
+import datetime
+
+# Initialize Pygame
+pygame.init()
+
+# Screen dimensions
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 400
+
+# Colors
+WHITE = (255, 255, 255)
+BLUE = (0, 102, 204)
+BLACK = (0, 0, 0)
+YELLOW = (255, 223, 0)
+GREY = (169, 169, 169)
+DARK_GREY = (105, 105, 105)
+RED = (220, 20, 60)
+
+# Create the screen
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption("Bus Arrival Display")
+
+# Clock to control FPS
+clock = pygame.time.Clock()
+FPS = 55
+
+class Bus:
+    def __init__(self, y_offset):
+        self.width = 120
+        self.height = 60
+        self.x = -self.width  # Start off-screen (left)
+        self.y = SCREEN_HEIGHT // 2 - self.height // 2 + y_offset
+        self.speed = 1  # Speed of the bus
+
+bus_1 = Bus(60)
+bus_2 = Bus(120)
+
+# Using a different thread to fetch data from the API
+fetched_timings = None
+
+def fetch_data_thread():
+    global fetched_timings
+    while True:
+        fetched_data = MBTA_Fetcher.fetch()
+        if fetched_data:
+            fetched_timings = fetched_data[:3]  # Only keep the next 3 bus times
+        time.sleep(10)  # Fetch data every 10 seconds
+
+def map_value_to_range(value, from_min, from_max, to_min, to_max):
+    """Maps a value from one range to another."""
+    from_range = from_max - from_min
+    to_range = to_max - to_min
+    scaled_value = (value - from_min) / from_range
+    return to_min + (scaled_value * to_range)
+
+# Start the fetching thread
+fetch_thread = threading.Thread(target=fetch_data_thread, daemon=True)
+fetch_thread.start()
+
+total_secs = None
+time_map = 0
+
+# Load font
+font = pygame.font.SysFont("Arial", 24, bold=True)
+
+# Main Loop
+while True:
+    screen.fill(WHITE)
+    
+    # Display current time
+    current_time = datetime.datetime.now().strftime("%H:%M:%S")
+    time_text = font.render(f"Current Time: {current_time}", True, BLACK)
+    screen.blit(time_text, (50, 20))
+    
+    if fetched_timings is not None:
+        for i in range(len(fetched_timings)):
+            arrival_text = f"{fetched_timings[i]['h']}h {fetched_timings[i]['m']}m {fetched_timings[i]['s']}s"
+            img = font.render(arrival_text, True, BLUE)
+            screen.blit(img, (650, 60 + i * 30))
+            total_secs = int(fetched_timings[0]['total_seconds'])
+            if total_secs < 0:
+                total_secs = int(fetched_timings[1]['total_seconds'])
+        
+        time_map = map_value_to_range(total_secs, 0, 1400, 500, 0)
+    else:
+        time_map = 0
+    
+    # Draw road
+    pygame.draw.rect(screen, DARK_GREY, (0, SCREEN_HEIGHT // 2 + 100, SCREEN_WIDTH, 100))
+    pygame.draw.rect(screen, GREY, (0, SCREEN_HEIGHT // 2 + 120, SCREEN_WIDTH, 40))
+    
+    # Draw bus bodies
+    pygame.draw.rect(screen, BLUE, (bus_1.x + time_map, bus_1.y, bus_1.width, bus_1.height))
+    pygame.draw.rect(screen, YELLOW, (bus_2.x + time_map, bus_2.y, bus_2.width, bus_2.height))
+    
+    # Draw bus windows
+    for bus_obj in [bus_1, bus_2]:
+        pygame.draw.rect(screen, WHITE, (bus_obj.x + 10 + time_map, bus_obj.y + 10, 30, 30))
+        pygame.draw.rect(screen, WHITE, (bus_obj.x + 50 + time_map, bus_obj.y + 10, 30, 30))
+        pygame.draw.rect(screen, WHITE, (bus_obj.x + 90 + time_map, bus_obj.y + 10, 20, 30))
+    
+    # Draw wheels
+    for bus_obj in [bus_1, bus_2]:
+        pygame.draw.circle(screen, BLACK, (bus_obj.x + 20 + time_map, bus_obj.y + 60), 10)
+        pygame.draw.circle(screen, BLACK, (bus_obj.x + 100 + time_map, bus_obj.y + 60), 10)
+    
+    # Bus arrival countdown display
+    if fetched_timings is not None:
+        countdown_text = font.render("Next Bus Arrives In:", True, RED)
+        screen.blit(countdown_text, (50, 60))
+    
+    # Update bus positions
+    bus_1.x = 100
+    bus_2.x = 150
+    if bus_1.x > SCREEN_WIDTH:
+        bus_1.x = -bus_1.width
+    if bus_2.x > SCREEN_WIDTH:
+        bus_2.x = -bus_2.width
+    
+    # Event handling
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+    pygame.display.flip()
+    clock.tick(FPS)

@@ -1,0 +1,52 @@
+import requests
+import json
+
+# 1. API Base URL and Endpoint
+BASE_URL = "https://api-v3.mbta.com/routes?api_key=a7ce3bd86d3d4fb4ac2cfa39138c3396"
+ENDPOINT = "/predictions"  # You can change this to other endpoints like /routes, /stops, etc.
+
+# 2. Your API Key (Get it from MBTA Developer Portal)
+# API_KEY = "a7ce3bd86d3d4fb4ac2cfa39138c3396"
+
+
+
+params = {
+    
+    "api_key" : "a7ce3bd86d3d4fb4ac2cfa39138c3396",
+    # "filter[stop]": "1742",  # Replace with your stop ID
+    # "filter[latitude]" : "42.312322052258686",
+    # "filter[longitude]" : "-71.0934255584537",
+    # "filter[radius]" : ".01",
+    "filter[route]": '22',
+    "filter[direction_id]" : "1"
+
+}
+
+# 4. Make the GET request
+response = requests.get(f"{BASE_URL}{ENDPOINT}",params= params)
+
+# 5. Handle the response
+if response.status_code == 200:
+    data = response.json()
+    print("✅ API Request Successful!")
+    x_ratelimit_limit = response.headers.get("x-ratelimit-limit")
+    # print(f'The rate limit you have >> {x_ratelimit_limit}')
+    print(data)  # Print the API response data
+else:
+    print(f"❌ API Request Failed with status code: {response.status_code}")
+    print(response.text)  # Print error details
+
+
+# print(f'Data >> {data[]["attributes"]["arrival_time"][0]}')
+# for i in range(len(data["data"])):
+#     print(f'Data >> {data["data"][i]["attributes"]["arrival_time"]}')
+#     time_stamp = str(data["data"][i]["attributes"]["arrival_time"])
+#     time = time_stamp.split("T")
+#     print(f'Time to next bus >> {time[-1]}')
+
+
+with open("prediction_data.json","w") as file:
+    json.dump(data, file, indent= 4, sort_keys= True)
+
+
+
