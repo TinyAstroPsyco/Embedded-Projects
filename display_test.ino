@@ -1,21 +1,32 @@
+// Local Libraries
 #include "Display_ST7789.h"
 #include "LVGL_Driver.h"
+#include "debug.h"
+#include <small_bus.h>
+#include <bus_icon.h>
+#include <webserver.h>
 
+// Arduino librarries
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <ArduinoJson.h>
 #include <time.h>
 #include <TimeLib.h>
 #include <string.h>
-#include <small_bus.h>
-#include <bus_icon.h>
 
-#include "Display_ST7789.h"
+#define debug true
 
-#define route_no 22
+#ifndef debug
+#define debug false
+#endif
 
+
+// WiFi Credentials 
 const char* ssid = "Stark Industries";
 const char* password = "tony17071a0392";
+
+// Default String
+String routeNumber = "22";
 
 unsigned long startAttemptTime = millis();
 const unsigned long WIFI_TIMEOUT_MS = 150000; // 15 seconds timeout
@@ -28,15 +39,6 @@ lv_obj_t* img;
 lv_obj_t* local_time;
 
 int remaining_time[3] = {0,0,0};
-
-String requestPath = "/predictions"
-                          "?api_key=a7ce3bd86d3d4fb4ac2cfa39138c3396"
-                          "&filter[latitude]=42.312322052258686"
-                          "&filter[longitude]=-71.0934255584537"
-                          "&filter[radius]=0.001"
-                          "&filter[route]=" + String(route_no)+
-                          "&filter[direction_id]=1";
-                          // "&filter[stop]: 1742"
 
 // NTP server to request epoch time
 const char* ntpServer = "pool.ntp.org";
@@ -56,8 +58,9 @@ unsigned long getTime() {
   strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", &timeinfo);
 
   lv_label_set_text(local_time, buffer);
-  Serial.println("Debug :: ");
-  Serial.println(buffer);
+  
+  DebugPrint("Debug :: ");
+  DebugPrint(buffer);
   time(&now);
   return now;
 }
@@ -97,6 +100,8 @@ void setup() {
   local_time = lv_label_create(lv_scr_act());
   lv_label_set_text(local_time, "Time loading...");
   lv_obj_align(local_time, LV_ALIGN_CENTER, 0, -50);
+  
+  ServerBegin();
 
   }
 
@@ -105,6 +110,17 @@ void setup() {
 void call_MBTA(){
     WiFiClientSecure client;
     client.setInsecure();  // WARNING: insecure
+
+
+
+  String requestPath = "/predictions"
+                          "?api_key=a7ce3bd86d3d4fb4ac2cfa39138c3396"
+                          "&filter[latitude]=42.312322052258686"
+                          "&filter[longitude]=-71.0934255584537"
+                          "&filter[radius]=0.001"
+                          "&filter[route]=" + routeNumber +
+                          "&filter[direction_id]=1";
+                          // "&filter[stop]: 1742"
 
     Serial.println("Connecting to MBTA API server...");
     if (!client.connect(host, httpsPort)) {
@@ -204,8 +220,8 @@ void call_MBTA(){
     }
 
     client.stop();  
-    char buffer[40];
-    snprintf(buffer, sizeof(buffer), "Route No : %d \nNext Bus: %d min \n Bus : %d \n Bus : %d",route_no ,remaining_time[0],remaining_time[1],remaining_time[2]);  // or whatever data
+    char buffer[80];
+    snprintf(buffer, sizeof(buffer), "Route No : %s \nBus 1: %d min\nBus 2: %d min\nBus 3: %d min", routeNumber.c_str() ,remaining_time[0],remaining_time[1],remaining_time[2]);  // or whatever data
     lv_label_set_text(label, buffer);
 }
 
@@ -215,11 +231,11 @@ unsigned long lastTimeUpdate = 0;
 bool firstCallFlag = false;
 
 
-
 // Loop
 void loop() {
   Timer_Loop();
   delay(5);
+  handleRouteClient();
   if (firstCallFlag != true){
     getTime();
     call_MBTA();
