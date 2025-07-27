@@ -94,12 +94,12 @@ void setup() {
   
   img = lv_img_create(lv_scr_act());  // create image on active screen
   lv_img_set_src(img, &bus_icon);              // set your image source
-  lv_obj_align(img, LV_ALIGN_TOP_MID, 0, 0);     // position image on screen
+  lv_obj_align(img, LV_ALIGN_TOP_MID, 0, 20);     // position image on screen
 
 
   local_time = lv_label_create(lv_scr_act());
   lv_label_set_text(local_time, "Time loading...");
-  lv_obj_align(local_time, LV_ALIGN_CENTER, 0, -50);
+  lv_obj_align(local_time, LV_ALIGN_CENTER, 0, 50);
   
   ServerBegin();
 
